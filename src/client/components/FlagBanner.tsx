@@ -4,7 +4,7 @@ const STYLES: Record<RaceFlag, string> = {
   green: "bg-ignium-success/15 text-ignium-success border border-ignium-success/30",
   yellow: "bg-ignium-warning/20 text-ignium-warning border border-ignium-warning/40 font-bold text-lg py-3",
   red: "bg-ignium-danger/20 text-ignium-danger border border-ignium-danger/40 font-bold text-lg py-3",
-  white: "bg-white/10 text-ignium-text border border-white/20",
+  white: "bg-ignium-overlay/10 text-ignium-text border border-ignium-overlay/20",
   checkered: "bg-ignium-text text-ignium-bg font-bold text-lg py-3",
 };
 

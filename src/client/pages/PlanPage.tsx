@@ -75,7 +75,7 @@ export function PlanPage() {
         </h1>
         <button
           onClick={handleGenerate}
-          className="bg-ignium-accent text-ignium-bg rounded px-4 py-2 text-sm font-semibold uppercase tracking-wide hover:brightness-110 transition"
+          className="bg-ignium-accent text-ignium-onAccent rounded px-4 py-2 text-sm font-semibold uppercase tracking-wide hover:brightness-110 transition"
         >
           {stints.length ? "Regenerate schedule" : "Generate schedule"}
         </button>

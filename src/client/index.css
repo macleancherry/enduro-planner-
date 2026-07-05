@@ -2,12 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
+:root,
+[data-theme="dark"] {
+  --ignium-bg: 5 7 10;
+  --ignium-panel: 11 17 28;
+  --ignium-panel2: 15 24 38;
+  --ignium-border: rgba(255, 255, 255, 0.08);
+  --ignium-border-strong: rgba(255, 255, 255, 0.14);
+  --ignium-accent: 0 184 248;
+  --ignium-accent-dim: 10 63 86;
+  --ignium-purple: 126 20 255;
+  --ignium-purple-light: 134 59 255;
+  --ignium-blue: 71 191 255;
+  --ignium-text: 247 250 252;
+  --ignium-muted: 154 164 175;
+  --ignium-muted-light: 216 220 226;
+  --ignium-success: 34 211 138;
+  --ignium-danger: 255 92 122;
+  --ignium-warning: 255 204 102;
+  --ignium-on-accent: 5 7 10;
+  --ignium-overlay: 255 255 255;
+}
+
+[data-theme="light"] {
+  --ignium-bg: 238 241 244;
+  --ignium-panel: 249 251 252;
+  --ignium-panel2: 255 255 255;
+  --ignium-border: rgba(15, 23, 32, 0.12);
+  --ignium-border-strong: rgba(15, 23, 32, 0.2);
+  --ignium-accent: 0 137 179;
+  --ignium-accent-dim: 205 238 247;
+  --ignium-purple: 107 31 214;
+  --ignium-purple-light: 124 58 237;
+  --ignium-blue: 15 123 179;
+  --ignium-text: 20 26 33;
+  --ignium-muted: 91 102 114;
+  --ignium-muted-light: 58 69 82;
+  --ignium-success: 18 148 106;
+  --ignium-danger: 198 40 81;
+  --ignium-warning: 180 83 9;
+  --ignium-on-accent: 255 255 255;
+  --ignium-overlay: 20 26 33;
+}
+
 html, body, #root {
   height: 100%;
 }
 
 body {
-  @apply bg-ignium-bg text-ignium-text font-sans;
+  @apply bg-ignium-bg text-ignium-text font-sans transition-colors duration-200;
 }
 
 h1, h2, h3, .font-display {
@@ -15,6 +58,6 @@ h1, h2, h3, .font-display {
 }
 
 select option {
-  background-color: #0b111c;
-  color: #f7fafc;
+  background-color: rgb(var(--ignium-panel));
+  color: rgb(var(--ignium-text));
 }

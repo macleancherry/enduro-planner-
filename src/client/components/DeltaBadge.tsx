@@ -3,7 +3,7 @@ import type { Delta } from "../../shared/raceMath";
 const COLORS = {
   better: "bg-ignium-success/15 text-ignium-success",
   worse: "bg-ignium-danger/15 text-ignium-danger",
-  onTarget: "bg-white/5 text-ignium-muted",
+  onTarget: "bg-ignium-overlay/5 text-ignium-muted",
 };
 
 export function DeltaBadge({ delta, unit, compact }: { delta: Delta; unit: string; compact?: boolean }) {

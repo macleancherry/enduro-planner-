@@ -16,7 +16,7 @@ export function RaceListPage() {
         <h1 className="font-display text-2xl font-bold text-ignium-text tracking-wide">RACES</h1>
         <Link
           to="/races/new"
-          className="bg-ignium-accent text-ignium-bg rounded px-4 py-2 text-sm font-semibold uppercase tracking-wide hover:brightness-110 transition"
+          className="bg-ignium-accent text-ignium-onAccent rounded px-4 py-2 text-sm font-semibold uppercase tracking-wide hover:brightness-110 transition"
         >
           New race
         </Link>

@@ -1,4 +1,5 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function AppLayout() {
   const location = useLocation();
@@ -7,8 +8,8 @@ export function AppLayout() {
       to={to}
       className={`px-3 py-2 rounded text-sm font-semibold uppercase tracking-wide transition-colors ${
         location.pathname === to
-          ? "bg-ignium-accent text-ignium-bg"
-          : "text-ignium-muted hover:text-ignium-text hover:bg-white/5"
+          ? "bg-ignium-accent text-ignium-onAccent"
+          : "text-ignium-muted hover:text-ignium-text hover:bg-ignium-overlay/5"
       }`}
     >
       {label}
@@ -25,6 +26,9 @@ export function AppLayout() {
           </span>
           {navItem("/", "Races")}
           {navItem("/drivers", "Drivers")}
+          <div className="ml-auto">
+            <ThemeToggle />
+          </div>
         </div>
       </header>
       <main className="max-w-6xl mx-auto px-4 py-6">

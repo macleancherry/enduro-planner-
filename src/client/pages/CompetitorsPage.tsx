@@ -69,7 +69,7 @@ export function CompetitorsPage() {
           placeholder="Car #"
           className="bg-ignium-panel2 border border-ignium-border text-ignium-text placeholder:text-ignium-muted rounded px-3 py-2 w-24 focus:outline-none focus:border-ignium-accent"
         />
-        <button type="submit" className="bg-ignium-accent text-ignium-bg rounded px-4 py-2 font-semibold uppercase tracking-wide hover:brightness-110 transition">
+        <button type="submit" className="bg-ignium-accent text-ignium-onAccent rounded px-4 py-2 font-semibold uppercase tracking-wide hover:brightness-110 transition">
           Add
         </button>
       </form>

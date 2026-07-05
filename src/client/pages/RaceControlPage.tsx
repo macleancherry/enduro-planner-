@@ -132,7 +132,7 @@ export function RaceControlPage() {
   const inputClass =
     "bg-ignium-panel2 border border-ignium-border text-ignium-text placeholder:text-ignium-muted rounded px-2 py-1 text-sm focus:outline-none focus:border-ignium-accent";
   const primaryButton =
-    "bg-ignium-accent text-ignium-bg rounded px-4 py-2 text-sm font-semibold uppercase tracking-wide hover:brightness-110 transition";
+    "bg-ignium-accent text-ignium-onAccent rounded px-4 py-2 text-sm font-semibold uppercase tracking-wide hover:brightness-110 transition";
   const card = "bg-ignium-panel border border-ignium-border rounded-lg shadow-sm p-4";
 
   return (
@@ -145,7 +145,7 @@ export function RaceControlPage() {
             Driver swap detected: {activeDriver?.name ?? "current driver"} →{" "}
             {live.driverSwapCandidate.mappedDriverName}. Confirm to close this stint and start the next?
           </span>
-          <button onClick={handleConfirmSwap} className="bg-ignium-warning text-ignium-bg rounded px-3 py-1 text-sm font-semibold">
+          <button onClick={handleConfirmSwap} className="bg-ignium-warning text-ignium-onAccent rounded px-3 py-1 text-sm font-semibold">
             Confirm
           </button>
         </div>

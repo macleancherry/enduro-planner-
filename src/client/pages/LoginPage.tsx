@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
+import { ThemeToggle } from "../ThemeToggle";
 
 export function LoginPage() {
   const [passcode, setPasscode] = useState("");
@@ -24,6 +25,9 @@ export function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-ignium-bg">
+      <div className="fixed top-4 right-4">
+        <ThemeToggle />
+      </div>
       <form
         onSubmit={handleSubmit}
         className="bg-ignium-panel border border-ignium-border p-8 rounded-lg shadow-lg w-full max-w-sm"
@@ -45,7 +49,7 @@ export function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-ignium-accent text-ignium-bg rounded py-2 font-semibold uppercase tracking-wide disabled:opacity-50 hover:brightness-110 transition"
+          className="w-full bg-ignium-accent text-ignium-onAccent rounded py-2 font-semibold uppercase tracking-wide disabled:opacity-50 hover:brightness-110 transition"
         >
           {loading ? "Checking..." : "Enter"}
         </button>

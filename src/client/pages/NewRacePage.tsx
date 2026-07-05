@@ -127,7 +127,7 @@ export function NewRacePage() {
           <button
             type="submit"
             disabled={submitting}
-            className="bg-ignium-accent text-ignium-bg rounded px-4 py-2 font-semibold uppercase tracking-wide disabled:opacity-50 hover:brightness-110 transition"
+            className="bg-ignium-accent text-ignium-onAccent rounded px-4 py-2 font-semibold uppercase tracking-wide disabled:opacity-50 hover:brightness-110 transition"
           >
             {submitting ? "Creating..." : "Create race"}
           </button>
