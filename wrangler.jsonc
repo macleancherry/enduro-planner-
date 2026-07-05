@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "enduro-planner",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2025-03-21",
+  "assets": {
+    "directory": "./dist/client",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "enduro-planner-db",
+      "database_id": "REPLACE_WITH_DATABASE_ID_FROM_WRANGLER_D1_CREATE"
+    }
+  ],
+  "vars": {
+    "LIVE_WORKER_URL": "https://ignium-live-api.example.workers.dev"
+  }
+}
