@@ -74,7 +74,7 @@ export function RaceControlPage() {
     };
   }, [pollLive]);
 
-  if (!race) return <p className="text-slate-500">Loading...</p>;
+  if (!race) return <p className="text-ignium-muted">Loading...</p>;
 
   const driverById = new Map(drivers.map((d) => [d.id, d]));
   const activeStint = stints.find((s) => s.status === "active") ?? null;
@@ -129,17 +129,23 @@ export function RaceControlPage() {
       ? paceDelta(live.ownCar.lastLapSeconds, activeStint.lapTimeOverrideSeconds ?? activeStint.plannedLapTimeSeconds)
       : null;
 
+  const inputClass =
+    "bg-ignium-panel2 border border-ignium-border text-ignium-text placeholder:text-ignium-muted rounded px-2 py-1 text-sm focus:outline-none focus:border-ignium-accent";
+  const primaryButton =
+    "bg-ignium-accent text-ignium-bg rounded px-4 py-2 text-sm font-semibold uppercase tracking-wide hover:brightness-110 transition";
+  const card = "bg-ignium-panel border border-ignium-border rounded-lg shadow-sm p-4";
+
   return (
     <div>
       <FlagBanner flag={live?.flag ?? null} />
 
       {confirmedSwapCandidate && live?.driverSwapCandidate && activeStint && (
-        <div className="bg-amber-100 border border-amber-300 text-amber-900 rounded-lg p-3 mb-4 flex items-center justify-between">
+        <div className="bg-ignium-warning/15 border border-ignium-warning/40 text-ignium-warning rounded-lg p-3 mb-4 flex items-center justify-between">
           <span>
             Driver swap detected: {activeDriver?.name ?? "current driver"} →{" "}
             {live.driverSwapCandidate.mappedDriverName}. Confirm to close this stint and start the next?
           </span>
-          <button onClick={handleConfirmSwap} className="bg-amber-900 text-white rounded px-3 py-1 text-sm font-medium">
+          <button onClick={handleConfirmSwap} className="bg-ignium-warning text-ignium-bg rounded px-3 py-1 text-sm font-semibold">
             Confirm
           </button>
         </div>
@@ -153,8 +159,8 @@ export function RaceControlPage() {
       >
         <div className="lg:grid lg:gap-4" style={{ gridTemplateColumns: "280px 1fr 340px" }}>
           <div className="grid gap-4 lg:contents">
-            <div className="bg-white rounded-lg shadow-sm p-4">
-              <h2 className="font-semibold text-slate-900 mb-2">Own car telemetry</h2>
+            <div className={card}>
+              <h2 className="font-semibold text-ignium-text mb-2">Own car telemetry</h2>
               {live?.ownCar ? (
                 <div className="grid grid-cols-2 gap-2 text-center">
                   <Gauge label="Lap" value={String(live.ownCar.lap)} />
@@ -163,7 +169,7 @@ export function RaceControlPage() {
                   <Gauge label="In pits" value={live.ownCar.inPits ? "Yes" : "No"} />
                 </div>
               ) : (
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-ignium-muted">
                   No live telemetry yet — set the subsession ID on the Plan page once the session is live. RPM/speed/gear/TC gauges need the collector/worker fuel &amp; gauge extension.
                 </p>
               )}
@@ -174,16 +180,16 @@ export function RaceControlPage() {
               )}
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm p-4">
-              <h2 className="font-semibold text-slate-900 mb-2">Recent laps</h2>
+            <div className={card}>
+              <h2 className="font-semibold text-ignium-text mb-2">Recent laps</h2>
               {live?.recentLaps.length ? (
                 <table className="w-full text-sm">
                   <tbody>
                     {live.recentLaps.map((l) => (
-                      <tr key={l.id} className="border-t border-slate-100">
-                        <td className="py-1">Lap {l.lapNumber}</td>
-                        <td className="py-1">{formatMMSS(l.lapTimeSeconds)}</td>
-                        <td className="py-1 text-slate-500">
+                      <tr key={l.id} className="border-t border-ignium-border">
+                        <td className="py-1 text-ignium-text">Lap {l.lapNumber}</td>
+                        <td className="py-1 text-ignium-text">{formatMMSS(l.lapTimeSeconds)}</td>
+                        <td className="py-1 text-ignium-muted">
                           {l.fuelUsedLiters != null ? `${l.fuelUsedLiters.toFixed(2)} L` : "—"}
                         </td>
                       </tr>
@@ -191,15 +197,15 @@ export function RaceControlPage() {
                   </tbody>
                 </table>
               ) : (
-                <p className="text-sm text-slate-500">No laps logged yet this stint.</p>
+                <p className="text-sm text-ignium-muted">No laps logged yet this stint.</p>
               )}
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm p-4">
-              <h2 className="font-semibold text-slate-900 mb-2">Current stint</h2>
+            <div className={card}>
+              <h2 className="font-semibold text-ignium-text mb-2">Current stint</h2>
               {activeStint ? (
                 <div>
-                  <p className="text-sm text-slate-600 mb-2">
+                  <p className="text-sm text-ignium-mutedLight mb-2">
                     Stint {activeStint.stintNumber} — {activeDriver?.name ?? "unassigned"} — target{" "}
                     {formatMMSS(activeStint.lapTimeOverrideSeconds ?? activeStint.plannedLapTimeSeconds)}/lap
                   </p>
@@ -208,50 +214,44 @@ export function RaceControlPage() {
                       value={endForm.actualLaps}
                       onChange={(e) => setEndForm((f) => ({ ...f, actualLaps: e.target.value }))}
                       placeholder="Laps"
-                      className="border border-slate-300 rounded px-2 py-1 text-sm"
+                      className={inputClass}
                     />
                     <input
                       value={endForm.actualStintTime}
                       onChange={(e) => setEndForm((f) => ({ ...f, actualStintTime: e.target.value }))}
                       placeholder="Stint time (mm:ss)"
-                      className="border border-slate-300 rounded px-2 py-1 text-sm"
+                      className={inputClass}
                     />
                     <input
                       value={endForm.fuelAdded}
                       onChange={(e) => setEndForm((f) => ({ ...f, fuelAdded: e.target.value }))}
                       placeholder="Fuel added (L)"
-                      className="border border-slate-300 rounded px-2 py-1 text-sm"
+                      className={inputClass}
                     />
                   </div>
                   {live?.ownCar && (
                     <button
                       onClick={() => setEndForm((f) => ({ ...f, actualLaps: String(live.ownCar!.lap) }))}
-                      className="text-xs text-slate-500 hover:underline mb-2"
+                      className="text-xs text-ignium-accent hover:underline mb-2"
                     >
                       ↩ use telemetry: {live.ownCar.lap} laps
                     </button>
                   )}
-                  <button
-                    onClick={() => handleEnd(activeStint)}
-                    className="bg-slate-900 text-white rounded px-4 py-2 text-sm font-medium"
-                  >
+                  <button onClick={() => handleEnd(activeStint)} className={primaryButton}>
                     End stint
                   </button>
                 </div>
               ) : nextPlanned ? (
                 <div>
-                  <p className="text-sm text-slate-600 mb-2">
+                  <p className="text-sm text-ignium-mutedLight mb-2">
                     Next: Stint {nextPlanned.stintNumber} — {driverById.get(nextPlanned.plannedDriverId ?? "")?.name}
                   </p>
-                  <button
-                    onClick={() => handleStart(nextPlanned)}
-                    className="bg-slate-900 text-white rounded px-4 py-2 text-sm font-medium"
-                  >
+                  <button onClick={() => handleStart(nextPlanned)} className={primaryButton}>
                     Start stint
                   </button>
                 </div>
               ) : (
-                <p className="text-sm text-slate-500">No stints planned — generate a schedule first.</p>
+                <p className="text-sm text-ignium-muted">No stints planned — generate a schedule first.</p>
               )}
             </div>
 
@@ -263,12 +263,12 @@ export function RaceControlPage() {
           </div>
 
           <div className="mt-4 lg:mt-0">
-            <div className="bg-white rounded-lg shadow-sm p-4 mb-4">
-              <h2 className="font-semibold text-slate-900 mb-2">Leaderboard</h2>
+            <div className={`${card} mb-4`}>
+              <h2 className="font-semibold text-ignium-text mb-2">Leaderboard</h2>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="text-left text-slate-500">
+                    <tr className="text-left text-ignium-muted">
                       <th className="py-1 pr-2">Pos</th>
                       <th className="py-1 pr-2">Class</th>
                       <th className="py-1 pr-2">Car</th>
@@ -283,9 +283,9 @@ export function RaceControlPage() {
                     {live?.leaderboard.map((row) => (
                       <tr
                         key={row.carNumber}
-                        className={`border-t border-slate-100 ${row.isOurCar ? "bg-slate-100 font-medium" : ""} ${
-                          row.isPinnedCompetitor ? "bg-amber-50" : ""
-                        }`}
+                        className={`border-t border-ignium-border text-ignium-text ${
+                          row.isOurCar ? "bg-ignium-accent/10 font-medium" : ""
+                        } ${row.isPinnedCompetitor ? "bg-ignium-warning/10" : ""}`}
                       >
                         <td className="py-1 pr-2">{row.position}</td>
                         <td className="py-1 pr-2">{row.classShortName ?? "—"}</td>
@@ -299,12 +299,12 @@ export function RaceControlPage() {
                     ))}
                   </tbody>
                 </table>
-                {!live && <p className="text-sm text-slate-500 mt-2">No live data — set a subsession ID on the Plan page.</p>}
+                {!live && <p className="text-sm text-ignium-muted mt-2">No live data — set a subsession ID on the Plan page.</p>}
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm p-4">
-              <h2 className="font-semibold text-slate-900 mb-2">Completed stints</h2>
+            <div className={card}>
+              <h2 className="font-semibold text-ignium-text mb-2">Completed stints</h2>
               <div className="grid gap-2">
                 {completed.map((s) => {
                   const laps = s.actualLaps ?? 0;
@@ -315,8 +315,8 @@ export function RaceControlPage() {
                   const actualFuelPerLap = s.fuelAddedLiters && laps ? s.fuelAddedLiters / laps : null;
                   const f = actualFuelPerLap != null ? fuelDelta(actualFuelPerLap, targetFuel) : null;
                   return (
-                    <div key={s.id} className="border-t border-slate-100 pt-2 flex items-center justify-between text-sm">
-                      <span>
+                    <div key={s.id} className="border-t border-ignium-border pt-2 flex items-center justify-between text-sm">
+                      <span className="text-ignium-text">
                         Stint {s.stintNumber} — {driverById.get(s.actualDriverId ?? "")?.name} — {laps} laps
                       </span>
                       <span className="flex gap-2">
@@ -326,25 +326,25 @@ export function RaceControlPage() {
                     </div>
                   );
                 })}
-                {completed.length === 0 && <p className="text-sm text-slate-500">No completed stints yet.</p>}
+                {completed.length === 0 && <p className="text-sm text-ignium-muted">No completed stints yet.</p>}
               </div>
             </div>
           </div>
 
           <div className="mt-4 lg:mt-0">
-            <div className="bg-white rounded-lg shadow-sm p-4 mb-4">
-              <h2 className="font-semibold text-slate-900 mb-2">Pinned competitors</h2>
+            <div className={`${card} mb-4`}>
+              <h2 className="font-semibold text-ignium-text mb-2">Pinned competitors</h2>
               <div className="grid gap-2">
                 {live?.leaderboard.filter((r) => r.isPinnedCompetitor).map((r) => {
                   const ourRow = live.leaderboard.find((x) => x.isOurCar);
                   const gapToUs =
                     ourRow && r.gapSeconds != null && ourRow.gapSeconds != null ? r.gapSeconds - ourRow.gapSeconds : null;
                   return (
-                    <div key={r.carNumber} className="border border-amber-200 bg-amber-50 rounded p-2 text-sm">
-                      <div className="font-medium">
+                    <div key={r.carNumber} className="border border-ignium-warning/30 bg-ignium-warning/10 rounded p-2 text-sm">
+                      <div className="font-medium text-ignium-text">
                         #{r.carNumber} — {r.driverName}
                       </div>
-                      <div className="text-slate-600">
+                      <div className="text-ignium-mutedLight">
                         Gap to us: {gapToUs != null ? formatMMSS(gapToUs) : "—"} — laps since pit:{" "}
                         {r.lapsSincePit ?? "—"}
                         {ourRow ? ` (us: ${ourRow.lapsSincePit ?? "—"})` : ""}
@@ -353,20 +353,20 @@ export function RaceControlPage() {
                   );
                 })}
                 {!live?.leaderboard.some((r) => r.isPinnedCompetitor) && (
-                  <p className="text-sm text-slate-500">Pin competitors from the Competitors page to track them here.</p>
+                  <p className="text-sm text-ignium-muted">Pin competitors from the Competitors page to track them here.</p>
                 )}
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm p-4">
-              <h2 className="font-semibold text-slate-900 mb-2">Upcoming stints</h2>
+            <div className={card}>
+              <h2 className="font-semibold text-ignium-text mb-2">Upcoming stints</h2>
               <div className="grid gap-1 text-sm">
                 {upcoming.map((s) => (
-                  <div key={s.id} className="text-slate-600">
+                  <div key={s.id} className="text-ignium-mutedLight">
                     Stint {s.stintNumber} — {driverById.get(s.plannedDriverId ?? "")?.name}
                   </div>
                 ))}
-                {upcoming.length === 0 && <p className="text-slate-500">None planned.</p>}
+                {upcoming.length === 0 && <p className="text-ignium-muted">None planned.</p>}
               </div>
             </div>
           </div>
@@ -378,9 +378,9 @@ export function RaceControlPage() {
 
 function Gauge({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-slate-50 rounded p-2">
-      <div className="text-2xl font-bold text-slate-900">{value}</div>
-      <div className="text-xs text-slate-500">{label}</div>
+    <div className="bg-ignium-panel2 border border-ignium-border rounded p-2">
+      <div className="font-display text-2xl font-bold text-ignium-accent">{value}</div>
+      <div className="text-xs text-ignium-muted">{label}</div>
     </div>
   );
 }

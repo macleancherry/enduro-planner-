@@ -23,23 +23,29 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-100">
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-sm w-full max-w-sm">
-        <h1 className="text-xl font-bold mb-1 text-slate-900">Enduro Planner</h1>
-        <p className="text-sm text-slate-500 mb-6">Enter the team passcode to continue.</p>
+    <div className="min-h-screen flex items-center justify-center bg-ignium-bg">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-ignium-panel border border-ignium-border p-8 rounded-lg shadow-lg w-full max-w-sm"
+      >
+        <img src="/favicon.svg" alt="" className="w-12 h-12 mb-4 mx-auto" />
+        <h1 className="font-display text-xl font-bold mb-1 text-ignium-text text-center tracking-wide">
+          ENDURO PLANNER
+        </h1>
+        <p className="text-sm text-ignium-muted mb-6 text-center">Ignium Motorsport — team access only</p>
         <input
           type="password"
           autoFocus
           value={passcode}
           onChange={(e) => setPasscode(e.target.value)}
-          className="w-full border border-slate-300 rounded px-3 py-2 mb-3"
+          className="w-full bg-ignium-panel2 border border-ignium-border rounded px-3 py-2 mb-3 text-ignium-text placeholder:text-ignium-muted focus:outline-none focus:border-ignium-accent"
           placeholder="Passcode"
         />
-        {error && <p className="text-red-600 text-sm mb-3">{error}</p>}
+        {error && <p className="text-ignium-danger text-sm mb-3">{error}</p>}
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-slate-900 text-white rounded py-2 font-medium disabled:opacity-50"
+          className="w-full bg-ignium-accent text-ignium-bg rounded py-2 font-semibold uppercase tracking-wide disabled:opacity-50 hover:brightness-110 transition"
         >
           {loading ? "Checking..." : "Enter"}
         </button>

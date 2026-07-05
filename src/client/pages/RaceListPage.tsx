@@ -13,34 +13,40 @@ export function RaceListPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-bold text-slate-900">Races</h1>
-        <Link to="/races/new" className="bg-slate-900 text-white rounded px-4 py-2 text-sm font-medium">
+        <h1 className="font-display text-2xl font-bold text-ignium-text tracking-wide">RACES</h1>
+        <Link
+          to="/races/new"
+          className="bg-ignium-accent text-ignium-bg rounded px-4 py-2 text-sm font-semibold uppercase tracking-wide hover:brightness-110 transition"
+        >
           New race
         </Link>
       </div>
 
-      {races === null && <p className="text-slate-500">Loading...</p>}
-      {races?.length === 0 && <p className="text-slate-500">No races yet — create your first one.</p>}
+      {races === null && <p className="text-ignium-muted">Loading...</p>}
+      {races?.length === 0 && <p className="text-ignium-muted">No races yet — create your first one.</p>}
 
       <div className="grid gap-3">
         {races?.map((race) => (
-          <div key={race.id} className="bg-white rounded-lg shadow-sm p-4 flex items-center justify-between">
+          <div
+            key={race.id}
+            className="bg-ignium-panel border border-ignium-border rounded-lg shadow-sm p-4 flex items-center justify-between"
+          >
             <div>
-              <div className="font-semibold text-slate-900">{race.name}</div>
-              <div className="text-sm text-slate-500">
+              <div className="font-semibold text-ignium-text">{race.name}</div>
+              <div className="text-sm text-ignium-muted">
                 {race.track} — starts {formatUtcTime(race.startTimeUtc)} — car #{race.carNumber}
               </div>
             </div>
-            <div className="flex gap-2">
-              <Link to={`/races/${race.id}/plan`} className="text-sm font-medium text-slate-700 hover:underline">
+            <div className="flex gap-4">
+              <Link to={`/races/${race.id}/plan`} className="text-sm font-medium text-ignium-accent hover:underline">
                 Plan
               </Link>
-              <Link to={`/races/${race.id}/live`} className="text-sm font-medium text-slate-700 hover:underline">
+              <Link to={`/races/${race.id}/live`} className="text-sm font-medium text-ignium-accent hover:underline">
                 Race control
               </Link>
               <Link
                 to={`/races/${race.id}/competitors`}
-                className="text-sm font-medium text-slate-700 hover:underline"
+                className="text-sm font-medium text-ignium-accent hover:underline"
               >
                 Competitors
               </Link>

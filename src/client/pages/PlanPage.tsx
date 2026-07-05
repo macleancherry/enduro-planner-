@@ -55,7 +55,7 @@ export function PlanPage() {
     refresh();
   }
 
-  if (!race) return <p className="text-slate-500">Loading...</p>;
+  if (!race) return <p className="text-ignium-muted">Loading...</p>;
 
   const perDriverTotals = raceDrivers.map((rd) => {
     const mine = stints.filter((s) => s.plannedDriverId === rd.driverId);
@@ -70,33 +70,38 @@ export function PlanPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-bold text-slate-900">{race.name} — Plan</h1>
-        <button onClick={handleGenerate} className="bg-slate-900 text-white rounded px-4 py-2 text-sm font-medium">
+        <h1 className="font-display text-2xl font-bold text-ignium-text tracking-wide">
+          {race.name.toUpperCase()} — PLAN
+        </h1>
+        <button
+          onClick={handleGenerate}
+          className="bg-ignium-accent text-ignium-bg rounded px-4 py-2 text-sm font-semibold uppercase tracking-wide hover:brightness-110 transition"
+        >
           {stints.length ? "Regenerate schedule" : "Generate schedule"}
         </button>
       </div>
-      {error && <p className="text-red-600 text-sm mb-3">{error}</p>}
+      {error && <p className="text-ignium-danger text-sm mb-3">{error}</p>}
 
-      <div className="bg-white rounded-lg shadow-sm p-4 mb-4 flex items-center gap-3">
-        <label className="text-sm font-medium text-slate-700">iRacing subsession ID</label>
+      <div className="bg-ignium-panel border border-ignium-border rounded-lg shadow-sm p-4 mb-4 flex items-center gap-3">
+        <label className="text-sm font-medium text-ignium-muted">iRacing subsession ID</label>
         <input
           value={subsessionId}
           onChange={(e) => setSubsessionId(e.target.value)}
           placeholder="Set once the session is live"
-          className="border border-slate-300 rounded px-3 py-2 text-sm flex-1"
+          className="bg-ignium-panel2 border border-ignium-border text-ignium-text placeholder:text-ignium-muted rounded px-3 py-2 text-sm flex-1 focus:outline-none focus:border-ignium-accent"
         />
-        <button onClick={handleSaveSubsession} className="text-sm font-medium text-slate-700 hover:underline">
+        <button onClick={handleSaveSubsession} className="text-sm font-medium text-ignium-accent hover:underline">
           Save
         </button>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm p-4 mb-4">
-        <h2 className="font-semibold text-slate-900 mb-2">Per-driver totals</h2>
+      <div className="bg-ignium-panel border border-ignium-border rounded-lg shadow-sm p-4 mb-4">
+        <h2 className="font-semibold text-ignium-text mb-2">Per-driver totals</h2>
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-3">
           {perDriverTotals.map((t) => (
-            <div key={t.driver?.id} className="border border-slate-200 rounded p-3">
-              <div className="font-medium text-slate-900">{t.driver?.name}</div>
-              <div className="text-sm text-slate-500">
+            <div key={t.driver?.id} className="border border-ignium-border rounded p-3">
+              <div className="font-medium text-ignium-text">{t.driver?.name}</div>
+              <div className="text-sm text-ignium-muted">
                 {t.stintCount} stints — {t.totalLaps} laps — {formatMMSS(t.totalSeconds)}
               </div>
             </div>
@@ -108,15 +113,18 @@ export function PlanPage() {
         {stints.map((stint) => {
           const driver = stint.plannedDriverId ? driverById.get(stint.plannedDriverId) : undefined;
           return (
-            <div key={stint.id} className="bg-white rounded-lg shadow-sm p-4 grid sm:grid-cols-6 gap-3 items-center">
-              <div className="font-semibold text-slate-900">
+            <div
+              key={stint.id}
+              className="bg-ignium-panel border border-ignium-border rounded-lg shadow-sm p-4 grid sm:grid-cols-6 gap-3 items-center"
+            >
+              <div className="font-semibold text-ignium-text">
                 Stint {stint.stintNumber}
-                {stint.isLikelyFinalStint && <span className="text-xs text-amber-600 block">likely final</span>}
+                {stint.isLikelyFinalStint && <span className="text-xs text-ignium-warning block">likely final</span>}
               </div>
               <select
                 value={stint.plannedDriverId ?? ""}
                 onChange={(e) => handleStintChange(stint, { plannedDriverId: e.target.value || null })}
-                className="border border-slate-300 rounded px-2 py-1 text-sm"
+                className="bg-ignium-panel2 border border-ignium-border text-ignium-text rounded px-2 py-1 text-sm focus:outline-none focus:border-ignium-accent"
                 disabled={stint.status !== "planned"}
               >
                 {raceDrivers.map((rd) => (
@@ -125,20 +133,20 @@ export function PlanPage() {
                   </option>
                 ))}
               </select>
-              <div className="text-sm text-slate-600">
+              <div className="text-sm text-ignium-mutedLight">
                 {formatMMSS(stint.lapTimeOverrideSeconds ?? stint.plannedLapTimeSeconds)}/lap ×{" "}
                 {stint.lapsOverride ?? stint.plannedLaps} laps
               </div>
-              <div className="text-sm text-slate-600">{formatUtcTime(stint.plannedStartUtc)}</div>
-              <div className="text-sm text-slate-600">
+              <div className="text-sm text-ignium-mutedLight">{formatUtcTime(stint.plannedStartUtc)}</div>
+              <div className="text-sm text-ignium-mutedLight">
                 {driver ? `${formatLocalTime(stint.plannedStartUtc, driver.timezone)} (${driver.timezone})` : "—"}
               </div>
-              <div className="text-xs uppercase font-medium text-slate-500">{stint.status}</div>
+              <div className="text-xs uppercase font-medium text-ignium-muted">{stint.status}</div>
             </div>
           );
         })}
         {stints.length === 0 && (
-          <p className="text-slate-500 bg-white rounded-lg shadow-sm p-4">
+          <p className="text-ignium-muted bg-ignium-panel border border-ignium-border rounded-lg shadow-sm p-4">
             No schedule yet — click "Generate schedule" above.
           </p>
         )}

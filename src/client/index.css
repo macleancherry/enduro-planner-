@@ -5,3 +5,16 @@
 html, body, #root {
   height: 100%;
 }
+
+body {
+  @apply bg-ignium-bg text-ignium-text font-sans;
+}
+
+h1, h2, h3, .font-display {
+  font-family: "Orbitron", sans-serif;
+}
+
+select option {
+  background-color: #0b111c;
+  color: #f7fafc;
+}

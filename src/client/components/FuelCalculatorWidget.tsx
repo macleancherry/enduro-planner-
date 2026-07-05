@@ -27,37 +27,40 @@ export function FuelCalculatorWidget({
       ? fuelCalculator(lapTimeSeconds, raceTimeRemainingSeconds, Number(currentFuel), Number(fuelBurn), Number(maxTank))
       : null;
 
+  const inputClass =
+    "w-full bg-ignium-panel2 border border-ignium-border text-ignium-text rounded px-2 py-1 mt-0.5 focus:outline-none focus:border-ignium-accent";
+
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4">
-      <h2 className="font-semibold text-slate-900 mb-2">Fuel calculator</h2>
-      <div className="grid grid-cols-2 gap-2 text-sm mb-3">
+    <div className="bg-ignium-panel border border-ignium-border rounded-lg shadow-sm p-4">
+      <h2 className="font-semibold text-ignium-text mb-2">Fuel calculator</h2>
+      <div className="grid grid-cols-2 gap-2 text-sm mb-3 text-ignium-muted">
         <label>
           Lap time (mm:ss)
-          <input value={lapTime} onChange={(e) => setLapTime(e.target.value)} className="w-full border border-slate-300 rounded px-2 py-1 mt-0.5" />
+          <input value={lapTime} onChange={(e) => setLapTime(e.target.value)} className={inputClass} />
         </label>
         <label>
           Race time left (h:mm:ss)
           <input
             value={raceTimeRemaining}
             onChange={(e) => setRaceTimeRemaining(e.target.value)}
-            className="w-full border border-slate-300 rounded px-2 py-1 mt-0.5"
+            className={inputClass}
           />
         </label>
         <label>
           Current fuel (L)
-          <input value={currentFuel} onChange={(e) => setCurrentFuel(e.target.value)} className="w-full border border-slate-300 rounded px-2 py-1 mt-0.5" />
+          <input value={currentFuel} onChange={(e) => setCurrentFuel(e.target.value)} className={inputClass} />
         </label>
         <label>
           Burn per lap (L)
-          <input value={fuelBurn} onChange={(e) => setFuelBurn(e.target.value)} className="w-full border border-slate-300 rounded px-2 py-1 mt-0.5" />
+          <input value={fuelBurn} onChange={(e) => setFuelBurn(e.target.value)} className={inputClass} />
         </label>
         <label>
           Max tank (L)
-          <input value={maxTank} onChange={(e) => setMaxTank(e.target.value)} className="w-full border border-slate-300 rounded px-2 py-1 mt-0.5" />
+          <input value={maxTank} onChange={(e) => setMaxTank(e.target.value)} className={inputClass} />
         </label>
       </div>
       {result && (
-        <div className="text-sm bg-slate-50 rounded p-2">
+        <div className="text-sm bg-ignium-panel2 border border-ignium-border rounded p-2 text-ignium-text">
           <div>Laps remaining: {result.lapsRemaining.toFixed(1)}</div>
           <div>Fuel to add for finish: {result.fuelToAddForFinishLiters.toFixed(1)} L</div>
           <div>Pit stops remaining: {result.pitStopsRemaining}</div>

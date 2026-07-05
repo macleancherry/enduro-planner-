@@ -1,9 +1,9 @@
 import type { Delta } from "../../shared/raceMath";
 
 const COLORS = {
-  better: "bg-green-100 text-green-800",
-  worse: "bg-red-100 text-red-800",
-  onTarget: "bg-slate-100 text-slate-700",
+  better: "bg-ignium-success/15 text-ignium-success",
+  worse: "bg-ignium-danger/15 text-ignium-danger",
+  onTarget: "bg-white/5 text-ignium-muted",
 };
 
 export function DeltaBadge({ delta, unit, compact }: { delta: Delta; unit: string; compact?: boolean }) {

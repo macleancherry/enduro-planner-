@@ -1,11 +1,11 @@
 import type { RaceFlag } from "../../shared/flags";
 
 const STYLES: Record<RaceFlag, string> = {
-  green: "bg-green-100 text-green-800",
-  yellow: "bg-yellow-200 text-yellow-900 font-bold text-lg py-3",
-  red: "bg-red-200 text-red-900 font-bold text-lg py-3",
-  white: "bg-slate-200 text-slate-800",
-  checkered: "bg-slate-900 text-white font-bold text-lg py-3",
+  green: "bg-ignium-success/15 text-ignium-success border border-ignium-success/30",
+  yellow: "bg-ignium-warning/20 text-ignium-warning border border-ignium-warning/40 font-bold text-lg py-3",
+  red: "bg-ignium-danger/20 text-ignium-danger border border-ignium-danger/40 font-bold text-lg py-3",
+  white: "bg-white/10 text-ignium-text border border-white/20",
+  checkered: "bg-ignium-text text-ignium-bg font-bold text-lg py-3",
 };
 
 const LABELS: Record<RaceFlag, string> = {
@@ -19,6 +19,8 @@ const LABELS: Record<RaceFlag, string> = {
 export function FlagBanner({ flag }: { flag: RaceFlag | null }) {
   if (!flag) return null;
   return (
-    <div className={`rounded-lg px-4 py-2 mb-4 text-center ${STYLES[flag]}`}>{LABELS[flag]}</div>
+    <div className={`rounded-lg px-4 py-2 mb-4 text-center font-display tracking-wide ${STYLES[flag]}`}>
+      {LABELS[flag]}
+    </div>
   );
 }
