@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "enduro-planner",
+  "name": "enduro-plan",
   "main": "src/worker/index.ts",
   "compatibility_date": "2025-03-21",
   "assets": {
